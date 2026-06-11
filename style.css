@@ -1,0 +1,817 @@
+/* ==========================================================================
+   1. 初始化與全域變數 (Custom Properties)
+ ========================================================================== */
+:root {
+    --primary-color: #123773;   /* 主色系：深藍 */
+    --secondary-color: #d4e3fa; /* 輔助色：淡藍 */
+    --accent-color: #ba8513;    /* 點綴色：金黃 */
+    --text-dark: #222c3a;
+    --text-light: #ffffff;
+    --bg-light: #f4f8fe;
+    --card-shadow: 0 10px 30px rgba(18, 55, 115, 0.08);
+    --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --transition-fast: all 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--text-dark);
+    background-color: #ffffff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   2. 導覽列特效 (Glassmorphism 毛玻璃效果)
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(18, 55, 115, 0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.02);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: var(--transition-smooth);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   3. 主視覺區 (Hero Section 多重動畫)
+   ========================================================================== */
+.hero {
+    min-height: 95vh;
+    padding-top: 80px;
+    background: linear-gradient(135deg, #ffffff 0%, var(--secondary-color) 100%);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(186,133,19,0.08) 0%, transparent 70%);
+    top: 10%;
+    right: 10%;
+    animation: floating-slow 8s infinite ease-in-out;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--primary-color);
+    clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 1;
+    opacity: 0.03;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 25px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-tag {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 20px;
+    animation: pulse-glow 2s infinite ease-in-out;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.hero h1 .en-name {
+    font-size: 2rem;
+    color: var(--accent-color);
+    display: block;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.hero-desc {
+    font-size: 1.1rem;
+    color: #556275;
+    margin-bottom: 40px;
+    text-align: center; /* 完全置中不跑位 */
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(18, 55, 115, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: #0b2552;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(18, 55, 115, 0.4);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   修正：相容原本完美排版的輕量解鎖互動 CSS
+   ========================================================================== */
+.quest-tag {
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block; /* 嚴格鎖定原本的位置佈局 */
+}
+
+.quest-tag:hover {
+    transform: scale(1.03);
+}
+
+.quest-tag:active {
+    transform: scale(0.98);
+}
+
+.quest-tag.is-success {
+    background-color: #ad7c00 !important; 
+    border-color: #ad7c00 !important;
+    color: #ffffff !important; 
+    box-shadow: 0 4px 15px rgba(173, 124, 0, 0.4); 
+}
+/* ==========================================================================
+   4. 通用區塊與核心特質卡片
+   ========================================================================== */
+.section {
+    padding: 100px 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bg-light {
+    background-color: var(--bg-light);
+    max-width: 100%;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    font-weight: 700;
+}
+
+.section-title span {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 5px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--accent-color);
+    margin: 15px auto 0 auto;
+    border-radius: 2px;
+}
+
+.section-title.left-align {
+    text-align: left;
+}
+.section-title.left-align::after {
+    margin: 15px 0 0 0;
+}
+
+.grid-traits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.trait-card {
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    border-top: 4px solid var(--primary-color);
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.trait-card:hover {
+    transform: translateY(-10px);
+    border-top-color: var(--accent-color);
+    box-shadow: 0 20px 40px rgba(18, 55, 115, 0.15);
+}
+
+.trait-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    transition: transform 0.4s ease;
+}
+
+.trait-card:hover .trait-icon {
+    color: var(--accent-color);
+    transform: scale(1.15) rotate(5deg);
+}
+
+.trait-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+
+.trait-card p {
+    font-size: 0.95rem;
+    color: #666;
+    text-align: justify;
+}
+
+/* ==========================================================================
+   5. 雙欄與流動光暈進度條
+   ========================================================================== */
+.split-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.edu-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    gap: 20px;
+    transition: var(--transition-smooth);
+}
+
+.edu-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 15px 35px rgba(18, 55, 115, 0.12);
+}
+
+.edu-badge {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.edu-info h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.edu-info .sub {
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.exchange-tag {
+    background-color: var(--bg-light);
+    border-left: 3px solid var(--accent-color);
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: #444;
+    border-radius: 0 6px 6px 0;
+}
+
+.skill-category {
+    margin-bottom: 25px;
+}
+
+.skill-category h4 {
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tag-badge {
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid rgba(18, 55, 115, 0.15);
+    color: var(--primary-color);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    transition: var(--transition-fast);
+}
+
+.tag-badge:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.lang-bar-wrapper {
+    margin-bottom: 15px;
+}
+
+.lang-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.lang-level {
+    color: var(--accent-color);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(18, 55, 115, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
+    background-size: 200% 100%;
+    border-radius: 10px;
+    animation: shimmer-load 3s infinite linear;
+}
+
+/* ==========================================================================
+   6. 履歷時間軸
+   ========================================================================== */
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background-color: var(--secondary-color);
+    top: 0;
+    bottom: 0;
+    left: 150px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    display: flex;
+}
+
+.timeline-date {
+    width: 120px;
+    text-align: right;
+    font-weight: 700;
+    color: var(--accent-color);
+    padding-top: 15px;
+    flex-shrink: 0;
+}
+
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    background-color: var(--accent-color);
+    border: 4px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    left: 144px;
+    top: 20px;
+    z-index: 10;
+    box-shadow: 0 0 0 3px var(--secondary-color);
+    animation: pulse-dot 2s infinite;
+}
+
+.timeline-content {
+    margin-left: 60px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    transition: var(--transition-smooth);
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+.timeline-content h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.timeline-content .role {
+    color: #777;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.timeline-content ul {
+    padding-left: 20px;
+}
+
+.timeline-content li {
+    margin-bottom: 8px;
+    color: #445061;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   7. 國際專題與膠囊標籤
+   ========================================================================== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    border-left: 5px solid var(--primary-color);
+    transition: var(--transition-smooth);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    border-left-color: var(--accent-color);
+    box-shadow: 0 15px 35px rgba(18, 55, 115, 0.12);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.project-header h3 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.project-date {
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    font-weight: 700;
+    background: rgba(186, 133, 19, 0.1);
+    padding: 2px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+.project-desc {
+    font-size: 0.95rem;
+    color: #556275;
+    text-align: justify;
+    margin-bottom: 20px;
+    line-height: 1.7;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.project-tags span {
+    font-size: 0.8rem;
+    color: #778899;
+    background-color: var(--bg-light);
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.features-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.feature-badge {
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+    cursor: default;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.badge-outline {
+    background-color: #ffffff;
+    border: 1px solid var(--primary-color);
+    color: var(--text-dark);
+    font-weight: 700; /* 粗體 */
+}
+.badge-outline:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.badge-filled {
+    background: linear-gradient(135deg, #e6ae6d 0%, var(--accent-color) 100%);
+    color: #ffffff;
+    font-weight: 700; /* 粗體 */
+}
+.badge-filled:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(186, 133, 19, 0.3);
+}
+
+.badge-soft {
+    background-color: #f7e6cc;
+    border: 2px solid rgba(186, 133, 19, 0.2);
+    color: #8c6005;
+    font-weight: 700; /* 粗體 */
+}
+.badge-soft:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   8. 榮譽得獎區 (Dark Theme Banner)
+   ========================================================================== */
+.bg-dark {
+    background-color: var(--primary-color);
+    max-width: 100%;
+}
+
+.text-light {
+    color: #fff;
+}
+
+.container-center {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.honor-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 30px;
+    text-align: left;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transition: var(--transition-smooth);
+}
+
+.honor-card:hover {
+    background: rgba(255, 255, 255, 0.09);
+    transform: scale(1.02);
+}
+
+.honor-icon {
+    font-size: 3.5rem;
+    color: var(--accent-color);
+}
+
+.honor-detail h3 {
+    color: #fff;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.honor-rank {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   9. 動態特效定義與 RWD
+   ========================================================================== */
+.animate-fade-up {
+    animation: fade-in-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+.animate-fade-up-delayed {
+    opacity: 0;
+    animation: fade-in-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s forwards;
+}
+.animate-fade-up-delayed-2 {
+    opacity: 0;
+    animation: fade-in-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0.4s forwards;
+}
+.animate-fade-up-delayed-3 {
+    opacity: 0;
+    animation: fade-in-up 1s cubic-bezier(0.165, 0.84, 0.44, 1) 0.6s forwards;
+}
+
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floating-slow {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.05); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(18, 55, 115, 0.4); }
+    50% { box-shadow: 0 0 15px 5px rgba(18, 55, 115, 0.1); }
+}
+
+@keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 rgba(186, 133, 19, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(186, 133, 19, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(186, 133, 19, 0); }
+}
+
+@keyframes shimmer-load {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.icon-bounce {
+    animation: micro-bounce 3s infinite ease-in-out;
+}
+@keyframes micro-bounce {
+    0%, 100%, 20%, 50%, 80% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.footer {
+    background-color: #0b1a33;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 30px;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.5rem; }
+    .split-container { grid-template-columns: 1fr; gap: 40px; }
+    .timeline::after { left: 20px; }
+    .timeline-item { flex-direction: column; }
+    .timeline-date { text-align: left; margin-left: 45px; padding-bottom: 10px; }
+    .timeline-dot { left: 14px; top: 18px; }
+    .timeline-content { margin-left: 45px; }
+    .honor-card { flex-direction: column; text-align: center; }
+    .features-container { gap: 12px; }
+    .feature-badge { padding: 10px 20px; font-size: 0.85rem; }
+}
